@@ -47,29 +47,31 @@ npm run dev
 ```
 
 JOB-BOARD/
-├── app/
-│   ├── layout.tsx
-│   ├── page.tsx
-│   └── providers.tsx
+├── src/
+│   ├── app/                     # App routing and layout (Next.js App Router)
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── providers.tsx
+│   │
+│   ├── components/              # Reusable components
+│   │   ├── AddJobForm.tsx
+│   │   ├── EditJobForm.tsx
+│   │   └── JobList.tsx
+│   │
+│   ├── lib/                     # Utilities and validation
+│   │   ├── utils.ts
+│   │   └── validations/
+│   │       └── jobSchema.ts
+│   │
+│   └── redux/                   # State management (Redux Toolkit)
+│       └── features/jobs/
+│           ├── jobsApi.ts
+│           └── store.ts
 │
-├── components/
-│   ├── AddJobForm.tsx
-│   ├── EditJobForm.tsx
-│   └── JobList.tsx
-│
-├── lib/
-│   ├── utils.ts
-│   └── validations/
-│       └── jobSchema.ts
-│
-├── redux/
-│   └── features/jobs/
-│       ├── jobsApi.ts
-│       └── store.ts
-│
-├── next.config.ts
-├── tsconfig.json
-├── package.json
+├── public/                      # Static files (images, icons, etc.)
+├── next.config.ts               # Next.js configuration
+├── tsconfig.json                # TypeScript configuration
+├── package.json                 # Project metadata and dependencies
 
 ```
 
