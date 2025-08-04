@@ -1,5 +1,5 @@
-import AddJobForm from './components/AddJobForm'
-import JobList from './components/JobList'
+import AddJobForm from "../components/AddJobForm";
+import JobList from "../components/JobList";
 
 export default function HomePage() {
   return (
@@ -7,5 +7,5 @@ export default function HomePage() {
       <AddJobForm />
       <JobList />
     </main>
-  )
+  );
 }

@@ -2,19 +2,18 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { jobFormSchema, JobFormValues } from "@/lib/validations/jobSchema";
 import {
   Form,
   FormField,
-  FormLabel,
   FormItem,
+  FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+} from "./ui/form";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogTrigger,
@@ -22,52 +21,47 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { useAddJobMutation } from "../features/jobs/jobsApi";
-import { toast } from "sonner";
+} from "./ui/dialog";
+import { Job, useUpdateJobMutation } from "../redux/features/jobs/jobsApi";
 import { useState } from "react";
+import { toast } from "sonner";
+import { jobFormSchema, JobFormValues } from "../lib/validations/jobSchema";
 
-export default function AddJobModal({ onDone }: { onDone?: () => void }) {
+export default function EditJobModal({ job }: { job: Job }) {
   const [open, setOpen] = useState(false);
 
   const form = useForm<JobFormValues>({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
-      title: "",
-      company: "",
-      location: "",
-      description: "",
-      remote: false,
+      title: job.title,
+      company: job.company,
+      location: job.location,
+      description: job.description,
+      remote: job.remote,
     },
   });
 
-  const [addJob, { isLoading }] = useAddJobMutation();
+  const [updateJob, { isLoading }] = useUpdateJobMutation();
 
   const onSubmit = async (values: JobFormValues) => {
     try {
-      await addJob({
-        ...values,
-        postedAt: new Date().toISOString(),
-      }).unwrap();
-
-      toast.success("Job posted successfully!");
-      form.reset();
+      await updateJob({ id: job.id, ...values }).unwrap();
+      toast.success("Job updated successfully!");
       setOpen(false);
-      onDone?.();
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error("Update failed. Try again.");
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>+ Add New Job</Button>
+        <Button>Edit</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Post a New Job</DialogTitle>
+          <DialogTitle>Edit Job</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -79,7 +73,7 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
                 <FormItem>
                   <FormLabel>Job Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Frontend Developer" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,7 +87,7 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
                 <FormItem>
                   <FormLabel>Company</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Acme Corp" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,7 +101,7 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
                 <FormItem>
                   <FormLabel>Location</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Remote, Kathmandu" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,10 +115,7 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Describe the job role and responsibilities"
-                      {...field}
-                    />
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,21 +126,28 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
               control={form.control}
               name="remote"
               render={({ field }) => (
-                <FormItem className="flex items-center gap-2 space-y-0">
+                <FormItem className="flex items-center space-x-2">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="m-0">Remote Position</FormLabel>
+                  <FormLabel className="m-0">Remote</FormLabel>
                 </FormItem>
               )}
             />
 
-            <DialogFooter>
+            <DialogFooter className="flex gap-2">
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Posting..." : "Post Job"}
+                {isLoading ? "Saving..." : "Save"}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
               </Button>
             </DialogFooter>
           </form>

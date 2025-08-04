@@ -5,11 +5,17 @@ import {
   useGetJobsQuery,
   useDeleteJobMutation,
   Job,
-} from "../features/jobs/jobsApi";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "../redux/features/jobs/jobsApi";
+import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
 import EditJobForm from "./EditJobForm";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
 
 export default function JobList() {
   const { data: jobs, error, isLoading } = useGetJobsQuery();
@@ -52,7 +58,10 @@ export default function JobList() {
               <p>{job.description}</p>
               <div className="flex gap-2">
                 <EditJobForm job={job} />
-                <Button variant="destructive" onClick={() => handleDeleteClick(job)}>
+                <Button
+                  variant="destructive"
+                  onClick={() => handleDeleteClick(job)}
+                >
                   Delete
                 </Button>
               </div>
@@ -67,7 +76,10 @@ export default function JobList() {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
           </DialogHeader>
-          <p>Are you sure you want to delete the job &quot;{jobToDelete?.title}&quot;?</p>
+          <p>
+            Are you sure you want to delete the job &quot;{jobToDelete?.title}
+            &quot;?
+          </p>
           <DialogFooter className="pt-4">
             <Button variant="outline" onClick={() => setShowModal(false)}>
               Cancel

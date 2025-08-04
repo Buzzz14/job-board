@@ -9,7 +9,6 @@ A modern job board application built with Next.js, featuring a clean UI and real
 - 🎨 Modern UI with Tailwind CSS and shadcn/ui
 - ✨ Form validation with React Hook Form and Zod
 - 🚀 Fast and responsive interface
-- 💻 Support for remote job indicators
 
 ## Tech Stack
 
@@ -19,7 +18,6 @@ A modern job board application built with Next.js, featuring a clean UI and real
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
 - **Form Management**: [React Hook Form](https://react-hook-form.com/)
 - **Validation**: [Zod](https://zod.dev/)
-- **Notifications**: [Sonner](https://sonner.emilkowal.ski/)
 
 ## Getting Started
 
@@ -47,15 +45,17 @@ npm run dev
 ## Project Structure
 
 ```
-src/
-├── app/                   # Next.js app directory
-│   ├── components/       # Job-related components
-│   ├── features/        # Redux features
-│   └── page.tsx         # Main page
-├── components/
-│   └── ui/             # Reusable UI components
-└── lib/
-    └── validations/    # Zod schemas
+JOB-BOARD/
+├── app/ # Application routes and layout (Next.js)
+├── components/ # Reusable UI components
+├── lib/ # Utilities and schema validations
+├── redux/ # Redux Toolkit store and API slices
+├── public/ # Static files (images, etc.)
+├── .gitignore # Git ignore rules
+├── next.config.ts # Next.js configuration
+├── tsconfig.json # TypeScript configuration
+├── package.json # Project metadata and dependencies
+├── README.md # Project documentation
 ```
 
 ## Contributing
