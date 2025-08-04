@@ -45,17 +45,32 @@ npm run dev
 ## Project Structure
 
 ```
+
 JOB-BOARD/
-├── app/ # Application routes and layout (Next.js)
-├── components/ # Reusable UI components
-├── lib/ # Utilities and schema validations
-├── redux/ # Redux Toolkit store and API slices
-├── public/ # Static files (images, etc.)
-├── .gitignore # Git ignore rules
-├── next.config.ts # Next.js configuration
-├── tsconfig.json # TypeScript configuration
-├── package.json # Project metadata and dependencies
-├── README.md # Project documentation
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── providers.tsx
+│
+├── components/
+│   ├── AddJobForm.tsx
+│   ├── EditJobForm.tsx
+│   └── JobList.tsx
+│
+├── lib/
+│   ├── utils.ts
+│   └── validations/
+│       └── jobSchema.ts
+│
+├── redux/
+│   └── features/jobs/
+│       ├── jobsApi.ts
+│       └── store.ts
+│
+├── next.config.ts
+├── tsconfig.json
+├── package.json
+
 ```
 
 ## Contributing
