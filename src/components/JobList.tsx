@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   useGetJobsQuery,
   useDeleteJobMutation,
-  Job,
 } from "../redux/features/jobs/jobsApi";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
@@ -16,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import { Job } from "@/types";
 
 export default function JobList() {
   const { data: jobs, error, isLoading } = useGetJobsQuery();

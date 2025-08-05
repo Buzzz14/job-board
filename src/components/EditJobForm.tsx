@@ -22,10 +22,11 @@ import {
   DialogTitle,
   DialogFooter,
 } from "./ui/dialog";
-import { Job, useUpdateJobMutation } from "../redux/features/jobs/jobsApi";
+import { useUpdateJobMutation } from "../redux/features/jobs/jobsApi";
 import { useState } from "react";
 import { toast } from "sonner";
 import { jobFormSchema, JobFormValues } from "../lib/validations/jobSchema";
+import { Job } from "@/types";
 
 export default function EditJobModal({ job }: { job: Job }) {
   const [open, setOpen] = useState(false);
