@@ -49,13 +49,25 @@ export default function JobList() {
           <Card key={job.id}>
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">{job.title}</h2>
+              {job.remote === true ? (
+                <p className="text-green-600 font-semibold">Remote</p>
+              ) : (
+                <p className="text-red-600 font-semibold">On-site</p>
+              )}
+
+              <p>
+                <strong>Salary:</strong> {job.salary.currency} {job.salary.min}-{job.salary.max}
+              </p>
+              <br />
               <p>
                 <strong>Company:</strong> {job.company}
               </p>
               <p>
                 <strong>Location:</strong> {job.location}
               </p>
+              <br />
               <p>{job.description}</p>
+              <br />
               <div className="flex gap-2">
                 <EditJobForm job={job} />
                 <Button

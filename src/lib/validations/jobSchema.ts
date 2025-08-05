@@ -6,6 +6,11 @@ export const jobFormSchema = z.object({
   location: z.string().min(2, 'Location is required'),
   description: z.string().min(10, 'Description is too short'),
   remote: z.boolean().optional(),
+  salary: z.object({
+    min: z.number().min(1, 'Minimum salary is required'),
+    max: z.number().min(1, 'Maximum salary is required'),
+    currency: z.string().min(1, 'Currency is required'),
+  }),
 })
 
 export type JobFormValues = z.infer<typeof jobFormSchema>

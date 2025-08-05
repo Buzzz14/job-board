@@ -37,6 +37,11 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
       company: "",
       location: "",
       description: "",
+      salary: {
+        min: 0,
+        max: 0,
+        currency: "",
+      },
       remote: false,
     },
   });
@@ -146,6 +151,71 @@ export default function AddJobModal({ onDone }: { onDone?: () => void }) {
                 </FormItem>
               )}
             />
+
+            <FormItem>
+              <FormLabel>Salary Range</FormLabel>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <FormField
+                  control={form.control}
+                  name="salary.min"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Min Salary"
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === "" ? 0 : Number(e.target.value)
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="salary.max"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Max Salary"
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === "" ? 0 : Number(e.target.value)
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="salary.currency"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Currency (e.g., USD, NPR)"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </FormItem>
 
             <DialogFooter>
               <Button type="submit" disabled={isLoading}>

@@ -39,6 +39,11 @@ export default function EditJobModal({ job }: { job: Job }) {
       location: job.location,
       description: job.description,
       remote: job.remote,
+      salary: {
+        min: job.salary?.min || 0,
+        max: job.salary?.max || 0,
+        currency: job.salary?.currency || "",
+      },
     },
   });
 
@@ -138,6 +143,72 @@ export default function EditJobModal({ job }: { job: Job }) {
                 </FormItem>
               )}
             />
+
+            <FormItem>
+              <FormLabel>Salary Range</FormLabel>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <FormField
+                  control={form.control}
+                  name="salary.min"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Min Salary"
+                          value={field.value ?? ""}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === "" ? 0 : Number(e.target.value)
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="salary.max"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Max Salary"
+                          value={field.value ?? ""}
+                          onChange={(e) =>
+                            field.onChange(
+                              e.target.value === "" ? 0 : Number(e.target.value)
+                            )
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="salary.currency"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          placeholder="Currency (e.g., USD, NPR)"
+                          value={field.value ?? ""}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </FormItem>
 
             <DialogFooter className="flex gap-2">
               <Button type="submit" disabled={isLoading}>

@@ -1,9 +1,14 @@
 export interface Job {
-  id: number
-  title: string
-  company: string
-  location: string
-  description: string
-  remote: boolean
-  postedAt: string
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  salary: {
+    min: number;
+    max: number;
+    currency: string;
+  };
+  description: string;
+  remote: boolean;
+  postedAt: string;
 }
